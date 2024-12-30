@@ -2148,7 +2148,7 @@ SIGMA = ${SIGMAD}/sigma_cpu.c ${SIGMAD}/sigma_sys.c ${SIGMAD}/sigma_cis.c \
 	${SIGMAD}/sigma_fp.c ${SIGMAD}/sigma_io.c ${SIGMAD}/sigma_lp.c \
 	${SIGMAD}/sigma_map.c ${SIGMAD}/sigma_mt.c ${SIGMAD}/sigma_pt.c \
 	${SIGMAD}/sigma_rad.c ${SIGMAD}/sigma_rtc.c ${SIGMAD}/sigma_tt.c \
-	${SIGMAD}/sigma_cr.c ${SIGMAD}/sigma_cp.c 
+	${SIGMAD}/sigma_cr.c ${SIGMAD}/sigma_cp.c
 SIGMA_OPT = -I ${SIGMAD}
 
 SEL32D = ${SIMHD}/SEL32
@@ -3013,4 +3013,16 @@ ${BIN}frontpaneltest${EXE} : frontpanel/FrontPanelTest.c sim_sock.c sim_frontpan
 	#cmake:ignore-target
 	${MKDIRBIN}
 	${CC} frontpanel/FrontPanelTest.c sim_sock.c sim_frontpanel.c ${CC_OUTSPEC} ${LDFLAGS} ${OS_CURSES_DEFS}
+
+
+## install: install depencencies
+# https://github.com/open-simh/simh/blob/master/SIMH-V4-status.md
+# for networking
+# https://github.com/open-simh/simh/blob/master/0readme_ethernet.txt
+# but tuntap is old and tunnelblick is recommended
+.PHONY: install
+install:
+	if uname -s | grep -q "Darwin"; then \
+		brew install vde sdl2 sdl2_ttf tunnelblick \
+		; fi
 
